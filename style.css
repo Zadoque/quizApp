@@ -13,36 +13,137 @@ body {
     align-items: center;
     width: 100vw;
     height: 100vh;
-    background-color: red;
+    background-color: rgba(223, 184, 184, 0.856);
 }
 
 .content-start {
+    display: none;
     width: 100%;
     height: 50%;
-    display: flex;
     flex-direction: column;
-    background-color: blue;
-
+    background-color: rgba(233, 185, 185, 0.96)
 }
+
+.content-start-title {
+    display: flex;
+    place-content: center;
+}
+
+.content-start-description {
+    display: flex;
+    place-content: center;
+}
+
 .content-start-config {
     display: flex;
+    width: 100%;
     flex-direction: row;
-    padding-left: 2px;
+    margin-bottom: 10px;
 }
+
+.content-start-config-category {
+    width: 33.33%;
+    height: 1.4em;
+}
+
+.content-start-config-difficulty {
+    width: 33.33%;
+    height: 1.4em;
+}
+
+.content-start-config-amount {
+    width: 33.33%;
+    height: 1.4em;
+}
+
 select {
-  appearance: none; 
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  border: 2px solid #ddd;
-  border-radius: 5px;
-  font-size: .9em;
-  cursor: pointer;
-  
- background-color: rgba(72, 104, 135, 0.922);
-  text-align: center;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 95%;
+    height: 100%;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: .9em;
+    cursor: pointer;
+
+    background-color: rgba(72, 104, 135, 0.922);
+    text-align: center;
 }
 
 select:focus {
-  outline: none;
-  border-color: #4CAF50;
+    outline: none;
+    border-color: #4CAF50;
+}
+
+.content-start-button {
+    display: flex;
+    place-content: center;
+}
+
+.content-start-button button {
+    width: 25%;
+    height: 2em;
+    border-radius: 10px;
+}
+
+@media (min-width:768px) {
+    body {
+        display: flex;
+
+        background-color:  rgba(223, 184, 184, 0.856);
+        place-content: center;
+    }
+
+    .content {
+        display: flex;
+        width: 70%;
+    }
+
+    .content-start {
+        height: 60%;
+    }
+
+    .content-start-title h2 {
+        font-size: 2.6em;
+    }
+
+    .content-start-description {
+        font-size: 2.3em;
+    }
+    .content-start-config {
+        margin-bottom: 30px;
+    }
+    .content-start-config-category {
+        height: 2.7em;
+    }
+
+    .content-start-config-difficulty {
+        height: 2.7em;
+    }
+
+    .content-start-config-amount {
+        height: 2.7em;
+    }
+
+    select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        width: 95%;
+        height: 100%;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        font-size: 1.5em;
+        cursor: pointer;
+
+        background-color: rgba(72, 104, 135, 0.922);
+        text-align: center;
+    }
+
+    .content-start-button button{
+        height: 2.7em;
+        font-size:1.5em;
+    }
+
 }
