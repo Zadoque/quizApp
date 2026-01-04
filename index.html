@@ -1,13 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="content">
+        <div class="content-question">
+            <div class="content-question-ask">
+                How to delete a directory in Linux?
+            </div>
+            <div class="content-question-options">
+                <div class="content-question-options-1">
+                    <input type="radio" name="q1" value="ls">
+                    <span>ls</span>
+                </div>
+                <div class="content-question-options-1">
+                    <input type="radio" name="q1" value="ls">
+                    <span>delete</span>
+                </div>
+                <div class="content-question-options-1">
+                    <input type="radio" name="q1" value="ls">
+                    <span>remove</span>
+                </div>
+                <div class="content-question-options-1">
+                    <input type="radio" name="q1" value="ls">
+                    <span>rmdir</span>
+                </div>
+            </div>
+            <div class="content-question-button"></div>
+            <div class="content-question-progress"></div>
+            <div class="content-question-explanation"></div>
+        </div>
         <div class="content-start">
             <div class="content-start-title">
                 <h2>Quiz Time!</h2>
@@ -30,7 +58,7 @@
                     </select>
                 </div>
                 <div class="content-start-config-difficulty">
-                     <select name="dificullty" id="quiz-difficulty">
+                    <select name="dificullty" id="quiz-difficulty">
                         <option value="">Choose dificulty</option>
                         <option value="random">Random</option>
                         <option value="easy">Easy</option>
@@ -72,4 +100,5 @@
     </div>
     <script src="app.js"></script>
 </body>
+
 </html>
