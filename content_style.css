@@ -7,11 +7,14 @@
 body {
     margin: 0px;
 }
-
+div {
+    display: flex;
+}
 .content {
     display: flex;
     align-items: center;
     width: 100vw;
     height: 100vh;
     background-color: rgba(223, 184, 184, 0.856);
+    place-content: center;
 }
