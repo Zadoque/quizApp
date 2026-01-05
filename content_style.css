@@ -7,9 +7,11 @@
 body {
     margin: 0px;
 }
+
 div {
     display: flex;
 }
+
 .content {
     display: flex;
     align-items: center;
@@ -17,4 +19,17 @@ div {
     height: 100vh;
     background-color: rgba(223, 184, 184, 0.856);
     place-content: center;
+}
+
+@media (min-width:768px) {
+    .content {
+        display: flex;
+        width: 80%;
+    }
+}
+
+@media (min-width:1024px) {
+    .content {
+        width: 60%;
+    }
 }
