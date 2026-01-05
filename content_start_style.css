@@ -71,13 +71,22 @@ select:focus {
     border-radius: 10px;
 }
 
-.content-start-button-hover {
-    &:hover {
+
+/* Usar @media para hover */
+@media (hover: hover) and (pointer: fine) {
+    .content-start-button button:hover {
         background-color: rgba(255, 255, 255, 0.3);
-        cursor: pointer;
+        transform: scale(1.05);
     }
 }
 
+/* Para touch devices */
+@media (hover: none) and (pointer: coarse) {
+    .content-start-button button:active {
+        background-color: rgba(255, 255, 255, 0.3);
+        transform: scale(0.95);
+    }
+}
 @media (min-width:768px) {
     body {
         display: flex;
