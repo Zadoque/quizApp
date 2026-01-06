@@ -14,11 +14,15 @@ class QuizApp {
 
         //Questions part:
         this.content_question = document.querySelector(".content-question");
+        this.question_title = document.querySelector('#question-title');
+        this.question_options = document.querySelector(".content-question-options");
         this.subimit_button = document.querySelector("#question-subimit-button");
         this.next_button = document.querySelector("#question-next-button");
         this.previous_button = document.querySelector("#question-previous-button");
         this.progress_bar = document.querySelector("#progress-bar");
+
         this.questions = [];
+        this.actual_question = 0;
         this.init();
     }
     init() {
@@ -69,10 +73,8 @@ class QuizApp {
         const url = `${this.basic_url}apiKey=${this.api_key}&category=${category}&difficulty=${difficulty}&limit=${limit}`;
         try {
             this.questions = await this.getQuizQuestions(url);
+            this.startQuiz();
             this.toogleStartQuestion();
-            
-
-
         } catch (error) {
             console.log(`Error: ${error}`);
         }
