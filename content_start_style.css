@@ -72,7 +72,6 @@ select:focus {
 }
 
 
-/* Usar @media para hover */
 @media (hover: hover) and (pointer: fine) {
     .content-start-button button:hover {
         background-color: rgba(255, 255, 255, 0.3);
@@ -80,7 +79,6 @@ select:focus {
     }
 }
 
-/* Para touch devices */
 @media (hover: none) and (pointer: coarse) {
     .content-start-button button:active {
         background-color: rgba(255, 255, 255, 0.3);
