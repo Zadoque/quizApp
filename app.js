@@ -23,6 +23,14 @@ class QuizApp {
 
         this.questions = [];
         this.actual_question = 0;
+        this.score = {
+            total_questions: 0,
+            total_answered: 0,
+            total_right_answered: 0,
+            total_wrong_answered: 0,
+            answers: [],
+            subimiteds: []
+        }
         this.init();
     }
     init() {
@@ -73,6 +81,11 @@ class QuizApp {
         const url = `${this.basic_url}apiKey=${this.api_key}&category=${category}&difficulty=${difficulty}&limit=${limit}`;
         try {
             this.questions = await this.getQuizQuestions(url);
+            this.score.total_questions = this.questions.length;
+            for (let i = 0; i < this.score.total_questions; i++) {
+                this.score.answers.push([]);
+                this.score.subimiteds.push(false);
+            }
             this.goToNextQuestion();
             this.toogleStartQuestion();
         } catch (error) {
@@ -80,24 +93,24 @@ class QuizApp {
         }
 
     }
-    toogleStartQuestion(){
+    toogleStartQuestion() {
         console.log(window.getComputedStyle(this.content_start).display);
-        if(window.getComputedStyle(this.content_start).display == "flex"){
+        if (window.getComputedStyle(this.content_start).display == "flex") {
             this.content_start.style.display = "none";
             this.content_question.style.display = "flex";
-        } else{
+        } else {
             this.content_question.style.display = "none";
-             this.content_start.style.display = "display";
+            this.content_start.style.display = "display";
         }
     }
-    async getQuizQuestions(url) { 
+    async getQuizQuestions(url) {
         try {
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}`);
             }
             const data = await response.json();
-            return data; 
+            return data;
         } catch (error) {
             console.error('Error:', error);
             throw error;
@@ -107,23 +120,23 @@ class QuizApp {
         alert("Please provide the 3: category, difficulty and limit");
     }
 
-    goToNextQuestion(){
+    goToNextQuestion() {
         this.question_options.innerHTML = '';
         this.question_title.textContent = `${this.questions[this.actual_question].question}`;
 
-        if(this.questions[this.actual_question].multiple_correct_answers === "true"){
-            for(let answer in this.questions[this.actual_question].answers){
-                if(!this.questions[this.actual_question].answers[answer]) continue;
+        if (this.questions[this.actual_question].multiple_correct_answers === "true") {
+            for (let answer in this.questions[this.actual_question].answers) {
+                if (!this.questions[this.actual_question].answers[answer]) continue;
                 let question_option = `<div class="content-question-options-each">
                     <input type="checkbox" name="q${this.actual_question}" id="${answer} value="${this.questions[this.actual_question].answers[answer]}">
                     <span>${this.questions[this.actual_question].answers[answer]}</span>
                 </div>`
                 this.question_options.innerHTML += `${question_option}`;
-                
+
             }
-        } else{
-             for( let answer in this.questions[this.actual_question].answers){
-                if(!this.questions[this.actual_question].answers[answer]) continue;
+        } else {
+            for (let answer in this.questions[this.actual_question].answers) {
+                if (!this.questions[this.actual_question].answers[answer]) continue;
                 let question_option = `<div class="content-question-options-each">
                     <input type="radio" name="q${this.actual_question}" id="${answer}" value="${this.questions[this.actual_question].answers[answer]}">
                     <span>${this.questions[this.actual_question].answers[answer]}</span>
@@ -132,7 +145,38 @@ class QuizApp {
             }
         }
         console.log(this.questions);
-        console.log(this.questions[0].question);
+        console.log(this.questions[this.actual_question].question);
+    }
+
+    handleSubimitQuestionButton() {
+        console.log("Here we go");
+        if (this.score.subimiteds[this.actual_question]) return;
+        let inputs = document.querySelectorAll(`input[name= "q${this.actual_question}"]:checked`);
+        Array.from(inputs).map(input => this.score.answers[this.actual_question].push(`${input.id}`));
+        console.log(this.score.answers);
+        let is_correct = true;
+        Array.from(this.score.answers[this.actual_question]).map( guess => {
+            if (this.questions[this.actual_question].correct_answers[`${guess}_correct`] === "false") {
+                is_correct = false;
+            }
+        });
+        if(is_correct){
+            this.score.total_right_answered++;
+        } else {
+            this.total_wrong_answered++;
+        }
+        this.score.subimiteds[this.actual_question] = true;
+        this.revealAnswer();
+    }
+    revealAnswer(){
+        let inputs = document.querySelectorAll(`input[name=q${this.actual_question}]`);
+        Array.from(inputs).map(input => {
+            if(this.questions[this.actual_question].correct_answers[`${input.id}_correct`] === "true"){
+                input.classList.add('content-question-options-each-correct');
+            } else {
+                input.classList.add('content-question-options-each-wrong');
+            }
+        });
     }
 }
 document.addEventListener("DOMContentLoaded", () => {
