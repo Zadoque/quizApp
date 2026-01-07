@@ -16,15 +16,16 @@ class QuizApp {
         this.content_question = document.querySelector(".content-question");
         this.question_title = document.querySelector('#question-title');
         this.question_options = document.querySelector(".content-question-options");
+        this.question_explanation = document.querySelector("#question-explanation");
         this.subimit_button = document.querySelector("#question-subimit-button");
         this.next_button = document.querySelector("#question-next-button");
         this.previous_button = document.querySelector("#question-previous-button");
         this.progress_bar = document.querySelector("#progress-bar");
 
+
         this.questions = [];
         this.actual_question = 0;
         this.score = {
-            total_questions: 0,
             total_answered: 0,
             total_right_answered: 0,
             total_wrong_answered: 0,
@@ -51,7 +52,22 @@ class QuizApp {
             this.handlePreviousQuestionButton();
         });
     }
-
+    handleNextQuestionButton(){
+        if(this.actual_question == this.questions.length) return;
+        this.actual_question++;
+        this.goToNextQuestion();
+        if(this.score.subimiteds[this.actual_question]){
+            this.revealAnswer();
+        }
+    }
+    handlePreviousQuestionButton(){
+        if(this.actual_question == 0) return;
+        this.actual_question--;
+        this.goToNextQuestion();
+        if(this.score.subimiteds[this.actual_question]){
+            this.revealAnswer();
+        }
+    }
     handleStartQuizButton() {
         let category = this.category.value;
         let difficulty = this.difficulty.value;
@@ -128,7 +144,7 @@ class QuizApp {
             for (let answer in this.questions[this.actual_question].answers) {
                 if (!this.questions[this.actual_question].answers[answer]) continue;
                 let question_option = `<div class="content-question-options-each">
-                    <input type="checkbox" name="q${this.actual_question}" id="${answer} value="${this.questions[this.actual_question].answers[answer]}">
+                    <input type="checkbox" name="q${this.actual_question}" id="${answer}" value="${this.questions[this.actual_question].answers[answer]}">
                     <span>${this.questions[this.actual_question].answers[answer]}</span>
                 </div>`
                 this.question_options.innerHTML += `${question_option}`;
@@ -155,12 +171,12 @@ class QuizApp {
         Array.from(inputs).map(input => this.score.answers[this.actual_question].push(`${input.id}`));
         console.log(this.score.answers);
         let is_correct = true;
-        Array.from(this.score.answers[this.actual_question]).map( guess => {
+        Array.from(this.score.answers[this.actual_question]).map(guess => {
             if (this.questions[this.actual_question].correct_answers[`${guess}_correct`] === "false") {
                 is_correct = false;
             }
         });
-        if(is_correct){
+        if (is_correct) {
             this.score.total_right_answered++;
         } else {
             this.total_wrong_answered++;
@@ -168,16 +184,21 @@ class QuizApp {
         this.score.subimiteds[this.actual_question] = true;
         this.revealAnswer();
     }
-    revealAnswer(){
+    revealAnswer() {
         let inputs = document.querySelectorAll(`input[name=q${this.actual_question}]`);
         Array.from(inputs).map(input => {
-            if(this.questions[this.actual_question].correct_answers[`${input.id}_correct`] === "true"){
+            if (this.questions[this.actual_question].correct_answers[`${input.id}_correct`] === "true") {
                 input.parentElement.classList.add('content-question-options-each-correct');
             } else {
                 input.parentElement.classList.add('content-question-options-each-wrong');
             }
         });
-        
+        if (this.questions[this.actual_question].explanation) {
+            this.question_explanation.textContent = this.questions[this.actual_question].explanation;
+        } else {
+            this.question_explanation.textContent = "It seems that there isn't an explanation for this question. Maybe it is pretty simple.";
+
+        }
     }
 }
 document.addEventListener("DOMContentLoaded", () => {
