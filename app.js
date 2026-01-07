@@ -172,11 +172,12 @@ class QuizApp {
         let inputs = document.querySelectorAll(`input[name=q${this.actual_question}]`);
         Array.from(inputs).map(input => {
             if(this.questions[this.actual_question].correct_answers[`${input.id}_correct`] === "true"){
-                input.classList.add('content-question-options-each-correct');
+                input.parentElement.classList.add('content-question-options-each-correct');
             } else {
-                input.classList.add('content-question-options-each-wrong');
+                input.parentElement.classList.add('content-question-options-each-wrong');
             }
         });
+        
     }
 }
 document.addEventListener("DOMContentLoaded", () => {
