@@ -114,7 +114,7 @@ class QuizApp {
         if(this.questions[this.actual_question].multiple_correct_answers === "true"){
             for(let answer in this.questions[this.actual_question].answers){
                 if(!this.questions[this.actual_question].answers[answer]) continue;
-                let question_option = `<div class="content-question-options">
+                let question_option = `<div class="content-question-options-each">
                     <input type="checkbox" name="q${this.actual_question}" id="${answer} value="${this.questions[this.actual_question].answers[answer]}">
                     <span>${this.questions[this.actual_question].answers[answer]}</span>
                 </div>`
@@ -124,7 +124,7 @@ class QuizApp {
         } else{
              for( let answer in this.questions[this.actual_question].answers){
                 if(!this.questions[this.actual_question].answers[answer]) continue;
-                let question_option = `<div class="content-question-options">
+                let question_option = `<div class="content-question-options-each">
                     <input type="radio" name="q${this.actual_question}" id="${answer}" value="${this.questions[this.actual_question].answers[answer]}">
                     <span>${this.questions[this.actual_question].answers[answer]}</span>
                 </div>`

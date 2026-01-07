@@ -24,8 +24,9 @@
     font-size: 1.2em;
 }
 
-.content-question-options div {
+.content-question-options-each {
     padding-top: 12px;
+    flex-direction: row;
 }
 
 .content-question-options div input {
