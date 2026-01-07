@@ -28,7 +28,12 @@
     padding-top: 12px;
     flex-direction: row;
 }
-
+.content-question-options-each-correct {
+    color: green;
+}
+.content-question-options-each-wrong {
+    color:red;
+}
 .content-question-options div input {
     width: 10%;
     padding-left: 2%;
