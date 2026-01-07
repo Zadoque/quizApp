@@ -73,7 +73,7 @@ class QuizApp {
         const url = `${this.basic_url}apiKey=${this.api_key}&category=${category}&difficulty=${difficulty}&limit=${limit}`;
         try {
             this.questions = await this.getQuizQuestions(url);
-            this.startQuiz();
+            this.goToNextQuestion();
             this.toogleStartQuestion();
         } catch (error) {
             console.log(`Error: ${error}`);
@@ -107,9 +107,30 @@ class QuizApp {
         alert("Please provide the 3: category, difficulty and limit");
     }
 
-    startQuiz(){
-        this.question_title.textContent = `${this.questions[0].question}`;
-        console.log("start questions");
+    goToNextQuestion(){
+        this.question_options.innerHTML = '';
+        this.question_title.textContent = `${this.questions[this.actual_question].question}`;
+
+        if(this.questions[this.actual_question].multiple_correct_answers === "true"){
+            for(let answer in this.questions[this.actual_question].answers){
+                if(!this.questions[this.actual_question].answers[answer]) continue;
+                let question_option = `<div class="content-question-options">
+                    <input type="checkbox" name="q${this.actual_question}" id="${answer} value="${this.questions[this.actual_question].answers[answer]}">
+                    <span>${this.questions[this.actual_question].answers[answer]}</span>
+                </div>`
+                this.question_options.innerHTML += `${question_option}`;
+                
+            }
+        } else{
+             for( let answer in this.questions[this.actual_question].answers){
+                if(!this.questions[this.actual_question].answers[answer]) continue;
+                let question_option = `<div class="content-question-options">
+                    <input type="radio" name="q${this.actual_question}" id="${answer}" value="${this.questions[this.actual_question].answers[answer]}">
+                    <span>${this.questions[this.actual_question].answers[answer]}</span>
+                </div>`
+                this.question_options.innerHTML += `${question_option}`;
+            }
+        }
         console.log(this.questions);
         console.log(this.questions[0].question);
     }
