@@ -5,7 +5,7 @@ class QuizApp {
         this.category = document.querySelector("#quiz-category");
         this.difficulty = document.querySelector("#quiz-difficulty");
         this.limit = document.querySelector("#quiz-limit");
-        this.categories = ["Linux", "DevOps", "Code", "react", "Cloud", "Docker", "Kubernetes"];
+        this.categories = ["Linux", "DevOps", "Code", "react", "Cloud", "docker", "sql"];
         this.difficulties = ["Hard", "Medium", "Easy"];
         this.limits = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
             "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
@@ -105,6 +105,13 @@ class QuizApp {
     }
     handleInvalidParameters() {
         alert("Please provide the 3: category, difficulty and limit");
+    }
+
+    startQuiz(){
+        this.question_title.textContent = `${this.questions[0].question}`;
+        console.log("start questions");
+        console.log(this.questions);
+        console.log(this.questions[0].question);
     }
 }
 document.addEventListener("DOMContentLoaded", () => {
