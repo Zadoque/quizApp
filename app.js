@@ -5,7 +5,7 @@ class QuizApp {
         this.category = document.querySelector("#quiz-category");
         this.difficulty = document.querySelector("#quiz-difficulty");
         this.limit = document.querySelector("#quiz-limit");
-        this.categories = ["Linux", "DevOps", "Code", "react", "Cloud", "docker", "sql"];
+        this.categories = ["Linux", "DevOps", "Code", "react", "vuejs", "docker", "sql"];
         this.difficulties = ["Hard", "Medium", "Easy"];
         this.limits = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
             "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
