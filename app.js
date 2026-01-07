@@ -53,7 +53,7 @@ class QuizApp {
         });
     }
     handleNextQuestionButton(){
-        if(this.actual_question == this.questions.length) return;
+        if(this.actual_question == this.questions.length - 1) return;
         this.actual_question++;
         this.goToNextQuestion();
         if(this.score.subimiteds[this.actual_question]){
