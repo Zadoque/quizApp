@@ -1,7 +1,7 @@
 .content-question {
     display: none;
     width: 100%;
-    height: 90%;
+    height: max(90%, fit-content);
     flex-direction: column;
     background-color: rgba(233, 185, 185, 0.96);
     place-content: center;
@@ -34,8 +34,13 @@
 .content-question-options-each-wrong {
     color:red;
 }
-.content-question-options div input {
-    width: 10%;
+.content-question-options-each-input {
+    flex-wrap: wrap;
+    place-content: center;
+}
+.content-question-options-each-input input {
+    width: 15px;
+    height: 15px;
     padding-left: 2%;
 }
 
@@ -105,13 +110,13 @@
 .content-question-progress {
     width: 99%;
     background-color: white;
-    height: max(20px, 3%);
+    height: 20px;
 }
 
 .content-question-progress-bar {
     height: 100%;
     background-color: greenyellow;
-    width: 20%;
+    width: 0%;
 }
 
 .content-question-explanation {

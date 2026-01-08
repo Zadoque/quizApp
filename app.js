@@ -102,6 +102,7 @@ class QuizApp {
                 this.score.answers.push([]);
                 this.score.subimiteds.push(false);
             }
+            this.score.total_questions = this.questions.length;
             this.goToNextQuestion();
             this.toogleStartQuestion();
         } catch (error) {
@@ -144,7 +145,9 @@ class QuizApp {
             for (let answer in this.questions[this.actual_question].answers) {
                 if (!this.questions[this.actual_question].answers[answer]) continue;
                 let question_option = `<div class="content-question-options-each">
-                    <input type="checkbox" name="q${this.actual_question}" id="${answer}" value="${this.questions[this.actual_question].answers[answer]}">
+                    <div class= "content-question-options-each-input">
+                        <input type="checkbox" name="q${this.actual_question}" id="${answer}" value="${this.questions[this.actual_question].answers[answer]}">
+                    </div>
                     <span>${this.questions[this.actual_question].answers[answer]}</span>
                 </div>`
                 this.question_options.innerHTML += `${question_option}`;
@@ -154,7 +157,9 @@ class QuizApp {
             for (let answer in this.questions[this.actual_question].answers) {
                 if (!this.questions[this.actual_question].answers[answer]) continue;
                 let question_option = `<div class="content-question-options-each">
-                    <input type="radio" name="q${this.actual_question}" id="${answer}" value="${this.questions[this.actual_question].answers[answer]}">
+                    <div class="content-question-options-each-input">
+                        <input type="radio" name="q${this.actual_question}" id="${answer}" value="${this.questions[this.actual_question].answers[answer]}">
+                    </div>
                     <span>${this.questions[this.actual_question].answers[answer]}</span>
                 </div>`
                 this.question_options.innerHTML += `${question_option}`;
@@ -168,6 +173,10 @@ class QuizApp {
         console.log("Here we go");
         if (this.score.subimiteds[this.actual_question]) return;
         let inputs = document.querySelectorAll(`input[name= "q${this.actual_question}"]:checked`);
+        if(inputs.length == 0 ){
+            this.handleEmptyAnswer();
+            return;
+        }
         Array.from(inputs).map(input => this.score.answers[this.actual_question].push(`${input.id}`));
         console.log(this.score.answers);
         let is_correct = true;
@@ -179,18 +188,20 @@ class QuizApp {
         if (is_correct) {
             this.score.total_right_answered++;
         } else {
-            this.total_wrong_answered++;
+            this.score.total_wrong_answered++;
         }
         this.score.subimiteds[this.actual_question] = true;
+        this.score.total_answered++;
         this.revealAnswer();
+        this.updateProgressBar();
     }
     revealAnswer() {
         let inputs = document.querySelectorAll(`input[name=q${this.actual_question}]`);
         Array.from(inputs).map(input => {
             if (this.questions[this.actual_question].correct_answers[`${input.id}_correct`] === "true") {
-                input.parentElement.classList.add('content-question-options-each-correct');
+                input.parentElement.parentElement.classList.add('content-question-options-each-correct');
             } else {
-                input.parentElement.classList.add('content-question-options-each-wrong');
+                input.parentElement.parentElement.classList.add('content-question-options-each-wrong');
             }
         });
         if (this.questions[this.actual_question].explanation) {
@@ -199,6 +210,16 @@ class QuizApp {
             this.question_explanation.textContent = "It seems that there isn't an explanation for this question. Maybe it is pretty simple.";
 
         }
+    }
+    handleEmptyAnswer(){
+        alert("You didn't answer anything, try again");
+    }
+    updateProgressBar(){
+        console.log("it comes to update progress bar");
+        let perCent = (this.score.total_answered / this.score.total_questions) * 100;
+        this.progress_bar.style.width = `${perCent}%`;
+        console.log(this.progress_bar);
+        console.log(perCent);
     }
 }
 document.addEventListener("DOMContentLoaded", () => {
