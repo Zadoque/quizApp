@@ -94,7 +94,7 @@ class QuizApp {
         return array[Math.floor(Math.random() * array.length)];
     }
     async fetchQuestions(category, difficulty, limit) {
-        const url = `${this.basic_url}apiKey=${this.api_key}&category=${category}&difficulty=${difficulty}&limit=${limit}`;
+        const url = `${this.basic_url}category=${category}&difficulty=${difficulty}&limit=${limit}`;
         try {
             this.questions = await this.getQuizQuestions(url);
             this.score.total_questions = this.questions.length;
@@ -122,7 +122,12 @@ class QuizApp {
     }
     async getQuizQuestions(url) {
         try {
-            const response = await fetch(url);
+            const response = await fetch(url,  {
+                headers: {
+              "Authorization":  `${this.api_key}`,
+              "Content-Type": "application/json",
+                },
+              });
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}`);
             }
