@@ -10,7 +10,7 @@ class QuizApp {
         this.limits = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
             "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
         this.api_key = "qa_sk_ebdd94588f4f4fedec02a4c5d8c323e074a85d52";
-        this.basic_url = "https://quizapi.io/api/v1/questions?";
+        this.basic_url = "https://quizapi.io/api/v2/questions?";
 
         //Questions part:
         this.content_question = document.querySelector(".content-question");
