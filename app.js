@@ -124,7 +124,7 @@ class QuizApp {
         try {
             const response = await fetch(url,  {
                 headers: {
-              "Authorization":  `${this.api_key}`,
+              "Authorization":  `Bearer ${this.api_key}`,
               "Content-Type": "application/json",
                 },
               });
