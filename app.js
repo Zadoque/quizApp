@@ -9,7 +9,7 @@ class QuizApp {
         this.difficulties = ["Hard", "Medium", "Easy"];
         this.limits = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
             "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
-        this.api_key = "qa_sk_ebdd94588f4f4fedec02a4c5d8c323e074a85d52";
+        this.api_key = "qa_sk_1e5d9f2e4c51c82cfe992ab8364cde2c6a936baf";
         this.basic_url = "https://quizapi.io/api/v1/questions?";
 
         //Questions part:
